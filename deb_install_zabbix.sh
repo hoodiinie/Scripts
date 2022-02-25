@@ -43,9 +43,14 @@ do
   sed -i -e "s/zabbix-bdd-password/$ZABBIX_DB_USER_PASSWORD/g" "$file"
 done
 
+cp docker-compose.yml docker-compose.yml.bck
+
 data
 install_docker
 docker-compose up -d
+
+rm docker-compose.yml
+mv docker-compose.yml.bck docker-compose.yml
 
 clear
 tput bold; tput setaf 7; echo "LISTES DES CONTAINERS EN COURS : "
@@ -54,7 +59,7 @@ docker container ls
 echo ""
 tput setaf 7; echo "-------------------------------------------------"
 tput setaf 7; echo ""
-tput setaf 7; echo "   IP du serveur Zabbix : $addr_ip:8090      "
+tput setaf 7; echo "   Adresse du serveur Zabbix : http://$addr_ip:8090/     "
 tput setaf 7; echo "         ID : Admin / MDP : zabbix             "
 tput setaf 7; echo ""
 tput setaf 7; echo "-------------------------------------------------"
