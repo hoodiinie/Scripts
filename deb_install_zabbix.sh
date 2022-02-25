@@ -26,7 +26,7 @@ function data ()
         if [[ ! -e /apps ]]
         then
                 mkdir /apps
-                
+
                 if [[ ! -e /apps/zabbix ]]
                 then
                     mkdir /apps/zabbix
@@ -37,14 +37,14 @@ function data ()
         fi
 }
 
+cp docker-compose.yml docker-compose.yml.bck
+
 # Modification et lancement du docker-compose.yml
 for file in ~/scripts/docker-compose.yml
 do
   echo "Traitement de $file ..."
   sed -i -e "s/zabbix-bdd-password/$ZABBIX_DB_USER_PASSWORD/g" "$file"
 done
-
-cp docker-compose.yml docker-compose.yml.bck
 
 data
 install_docker
@@ -53,7 +53,6 @@ docker-compose up -d
 rm docker-compose.yml
 mv docker-compose.yml.bck docker-compose.yml
 
-clear
 tput bold; tput setaf 7; echo "LISTES DES CONTAINERS EN COURS : "
 tput setaf 3; echo ""
 docker container ls
@@ -65,4 +64,3 @@ tput setaf 7; echo "         ID : Admin / MDP : zabbix             "
 tput setaf 7; echo ""
 tput setaf 7; echo "-------------------------------------------------"
 tput setaf 2; echo ""
-
