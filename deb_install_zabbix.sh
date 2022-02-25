@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 tput setaf 7; read -p "Entrez le mot de passe pour la base de données Zabbix : " ZABBIX_DB_USER_PASSWORD
-rtput setaf 2; echo ""
+tput setaf 2; echo ""
 
 addr_ip=$(hostname -I)
 
@@ -23,17 +23,19 @@ function install_docker ()
 
 function data ()
 {
-        if [[ ! -e /apps]]
+        if [[ ! -e /apps]] {
         then
                 mkdir /apps
                 
-                if [[ ! -e /apps/zabbix ]]
+                if [[ ! -e /apps/zabbix ]]{
                 then
                     mkdir /apps/zabbix
                     mkdir /apps/zabbix/db
                     mkdir /apps/zabbix/srv
                 fi        
+                }
         fi
+        }
 }
 
 # Modification et lancement du docker-compose.yml
