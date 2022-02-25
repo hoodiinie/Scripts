@@ -34,7 +34,7 @@ services:
     ports:
       - 10051:10051
     volumes:  # Volumes for scripts and related files you can add
-      - /apps/zabbix/srv:/usr/lib/zabbix/alertscripts
+      - /apps/zabbix/alertscripts:/usr/lib/zabbix/alertscripts
       
   zabbix-web:    # The main Zabbix web UI or interface
     image: zabbix/zabbix-web-nginx-pgsql:ubuntu-latest
@@ -53,3 +53,17 @@ services:
       - zabbix-server
     ports:    # Port where Zabbix UI is available
       - 8090:8080
+
+version: '2'
+services:
+   zabbix-agent:
+      image: zabbix/zabbix-agent:ubuntu-latest
+      restart: always
+      environment:
+        ZBX_HOSTNAME: Zabbix server
+        ZBX_SERVER_HOST: 127.0.0.1
+      ports:
+        - 10050:10050
+      volumes:
+        - /apps/zabbix/agent:/var/lib/zabbix/enc
+
