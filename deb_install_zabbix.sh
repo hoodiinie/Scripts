@@ -23,19 +23,17 @@ function install_docker ()
 
 function data ()
 {
-        if [[ ! -e /apps]] {
+        if [[ ! -e /apps ]]
         then
                 mkdir /apps
                 
-                if [[ ! -e /apps/zabbix ]]{
+                if [[ ! -e /apps/zabbix ]]
                 then
                     mkdir /apps/zabbix
                     mkdir /apps/zabbix/db
                     mkdir /apps/zabbix/srv
-                fi        
-                }
+                fi
         fi
-        }
 }
 
 # Modification et lancement du docker-compose.yml
