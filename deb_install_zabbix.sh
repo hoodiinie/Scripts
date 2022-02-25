@@ -38,7 +38,7 @@ function data ()
 }
 
 # Modification et lancement du docker-compose.yml
-for file in ~/scripts/debian/zabbix-server/docker-compose.yml
+for file in ~/scripts/docker-compose.yml
 do
   echo "Traitement de $file ..."
   sed -i -e "s/zabbix-bdd-password/$ZABBIX_DB_USER_PASSWORD/g" "$file"
