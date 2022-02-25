@@ -1,11 +1,9 @@
 #!/bin/bash
 clear
-# Principaux paramètres
 tput setaf 7; read -p "Entrez le mot de passe pour la base de données Zabbix : " ZABBIX_DB_USER_PASSWORD
-read -p "Entrez l'adresse ip du serveur : " SERVER_IP
-#SERVER_IP=$(hostname -i)
-tput setaf 2; echo ""
+rtput setaf 2; echo ""
 
+addr_ip=$(hostname -I)
 
 
 function install_docker ()
@@ -56,7 +54,7 @@ docker container ls
 echo ""
 tput setaf 7; echo "-------------------------------------------------"
 tput setaf 7; echo ""
-tput setaf 7; echo "   IP du serveur Zabbix : $SERVER_IP:8090      "
+tput setaf 7; echo "   IP du serveur Zabbix : $addr_ip:8090      "
 tput setaf 7; echo "         ID : Admin / MDP : zabbix             "
 tput setaf 7; echo ""
 tput setaf 7; echo "-------------------------------------------------"
