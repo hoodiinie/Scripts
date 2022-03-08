@@ -13,7 +13,7 @@ services:
       - /apps/zabbix/db:/var/lib/postgresql/data
 
   zabbix-server:
-    image: zabbix/zabbix-server-pgsql:ubuntu-latest
+    image: zabbix/zabbix-server-pgsql:latest
     restart: always
     container_name: zabbix
     environment:
@@ -37,7 +37,7 @@ services:
       - /apps/zabbix/alertscripts:/usr/lib/zabbix/alertscripts
       
   zabbix-web:
-    image: zabbix/zabbix-web-nginx-pgsql:ubuntu-latest
+    image: zabbix/zabbix-web-nginx-pgsql:latest
     restart: always
     container_name: zabbix-web
     environment:
@@ -57,7 +57,7 @@ services:
 version: '2'
 services:
    zabbix-agent:
-      image: zabbix/zabbix-agent:ubuntu-latest
+      image: zabbix/zabbix-agent:latest
       restart: always
       environment:
         ZBX_HOSTNAME: Zabbix server
