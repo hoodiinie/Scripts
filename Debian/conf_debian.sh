@@ -193,7 +193,7 @@ tput setaf 6; echo "Configuration réseau ......................................
 sleep 2
 echo ""
 
-if [ "$ZABBIX" -eq "-z"]
+if [ "$ZABBIX" -eq "-z" ]
 then
     tput setaf 6; echo "Installation agent Zabbix ............................................................... En cours"
     tput setaf 1; install_zabbix
@@ -203,7 +203,7 @@ then
     echo ""
 fi
 
-if [ "$LOG" -eq "-l"]
+if [ "$LOG" -eq "-l" ]
 then
     tput setaf 6; echo "Configuration envoie journaux d'événements .............................................. En cours"
     tput setaf 1; rsyslog_server
