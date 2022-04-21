@@ -32,7 +32,7 @@ function data ()
                     mkdir /apps/zabbix
                     mkdir /apps/zabbix/db
                     mkdir /apps/zabbix/srv
-                    mkdir /apps/zabbix/agent
+                    mkdir /apps/zabbix/alertscripts
                 fi
         fi
 }
