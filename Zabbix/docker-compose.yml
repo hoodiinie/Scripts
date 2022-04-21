@@ -5,9 +5,9 @@ services:
     restart: always
     container_name: zabbix-db
     environment:
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbix-bdd-password
-      POSTGRES_DB: zabbix
+      POSTGRES_USER: usrzabbix
+      POSTGRES_PASSWORD: DB_PASSWORD
+      POSTGRES_DB: db_zabbix
       PG_DATA: /var/lib/postgresql/data/pgdata
     volumes:
       - /apps/zabbix/db:/var/lib/postgresql/data
@@ -17,9 +17,9 @@ services:
     restart: always
     container_name: zabbix
     environment:
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbix-bdd-password
-      POSTGRES_DB: zabbix
+      POSTGRES_USER: usrzabbix
+      POSTGRES_PASSWORD: DB_PASSWORD
+      POSTGRES_DB: db_zabbix
       ZBX_HISTORYSTORAGETYPES: log,text
       ZBX_DEBUGLEVEL: 1
       ZBX_HOUSEKEEPINGFREQUENCY: 1
@@ -41,9 +41,9 @@ services:
     restart: always
     container_name: zabbix-web
     environment:
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbix-bdd-password
-      POSTGRES_DB: zabbix
+      POSTGRES_USER: usrzabbix
+      POSTGRES_PASSWORD: DB_PASSWORD
+      POSTGRES_DB: db_zabbix
       ZBX_SERVER_HOST: zabbix-server
       ZBX_POSTMAXSIZE: 64M
       PHP_TZ: "Europe/Paris"
@@ -53,17 +53,3 @@ services:
       - zabbix-server
     ports:
       - 8090:8080
-
-version: '2'
-services:
-   zabbix-agent:
-      image: zabbix/zabbix-agent:latest
-      restart: always
-      environment:
-        ZBX_HOSTNAME: Zabbix server
-        ZBX_SERVER_HOST: 127.0.0.1
-      ports:
-        - 10050:10050
-      volumes:
-        - /apps/zabbix/agent:/var/lib/zabbix/enc
-

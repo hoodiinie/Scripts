@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-tput setaf 7; read -p "Entrez le mot de passe pour la base de données Zabbix : " ZABBIX_DB_USER_PASSWORD
+tput setaf 7; read -p "Entrez le mot de passe pour la base de données Zabbix : " DB_PASSWORD
 tput setaf 2; echo ""
 
 addr_ip=$(hostname -I)
@@ -40,10 +40,10 @@ function data ()
 cp docker-compose.yml docker-compose.yml.bck
 
 # Modification et lancement du docker-compose.yml
-for file in ~/scripts/docker-compose.yml
+for file in ~/scripts/Zabbix/docker-compose.yml
 do
   echo "Traitement de $file ..."
-  sed -i -e "s/zabbix-bdd-password/$ZABBIX_DB_USER_PASSWORD/g" "$file"
+  sed -i -e "s/DB_PASSWORD/$DB_PASSWORD/g" "$file"
 done
 
 data
