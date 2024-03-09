@@ -37,8 +37,8 @@ read -p "Quelle version de Zabbix souhaitez-vous installer ? " VERSIONZBX
 
 cd $WORKSPACE
 
-wget https://repo.zabbix.com/zabbix/$VERSIONZBX/debian/pool/main/z/zabbix-release/zabbix-release_$VERSIONZBX-1+debian"$VERSIONDEB"_all.deb
-sudo dpkg -i zabbix-release_$VERSIONZBX-1+debian"$VERSIONDEB"_all.deb
+wget https://repo.zabbix.com/zabbix/"$VERSIONZBX"/debian/pool/main/z/zabbix-release/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
+sudo dpkg -i zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
 sudo apt update
 
 sudo apt install postgresql
@@ -54,5 +54,18 @@ sudo sed -i 's/#        listen          8080;/	listen 8080;/g' /etc/zabbix/nginx
 sudo sed -i 's/#        server_name     example.com;/	server_name '$WEB';/g' /etc/zabbix/nginx.conf
 
 sudo systemctl restart zabbix-server zabbix-agent nginx php8.2-fpm
-sudo systemctl enable zabbix-server zabbix-agent nginx php8.2-fpm
+sudo systemctl enable zabbix-server zabbix-agent nginx php8.2-fpmtput setaf 
+
+
+##END
+
+tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
+tput bold; tput setaf 6; echo "                                                                                       "
+tput bold; tput setaf 6; echo "                              => Installation Done <=                                  "
+tput bold; tput setaf 6; echo "                                                                                       "
+tput bold; tput setaf 6; echo "                            Link : http://"$WEB":8080                                  "
+tput bold; tput setaf 6; echo "                          Login : Admin / Password : zabbix                            "
+tput bold; tput setaf 6; echo "                                                                                       "
+tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
+echo ""
 
