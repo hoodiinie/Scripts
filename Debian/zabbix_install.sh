@@ -49,7 +49,7 @@ sudo -u postgres createdb -O zabbix zabbix
 
 zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
 
-sudo sed -i 's/DBPassword=password/DBPassword=$PASS/g' /etc/zabbix/zabbix_server.conf
+sudo sed -i 's/# DBPassword=/DBPassword='$PASS'/g' /etc/zabbix/zabbix_server.conf
 sudo sed -i 's/#        listen          8080;/	listen 8080;/g' /etc/zabbix/nginx.conf
 sudo sed -i 's/#        server_name     example.com;/	server_name '$WEB';/g' /etc/zabbix/nginx.conf
 
