@@ -11,7 +11,10 @@ verif_script()
 	if [ $QUI = "root" ]
 	then
 		echo "ERREUR : Veuillez exécuter le script avec un utilisateur présent dans le fichier /etc/sudoers"
-	elif [[ -z $OPT_1 ]] && [ $OPT_1 != "-z" ]
+		exit
+	fi
+
+	if [[ -z $OPT_1 ]] && [ $OPT_1 != "-z" ]
 	then
 		echo "ERREUR : Veuillez indiquer l'option -z suivi du numéro de version de Zabbix (Exemple : 6.4)"	
 	elif [[ -z $VERSIONZBX ]]
