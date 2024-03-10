@@ -14,7 +14,7 @@ verif_script()
 		exit
 	fi
 
-	if [[ -z $OPT_1 ]] && [[ $OPT_1 -ne "-z" ]]
+	if [[ -z $OPT_1 ]] || [[ $OPT_1 -ne "-z" ]]
 	then
 		echo "ERREUR : Veuillez indiquer l'option -z suivi du numéro de version de Zabbix (Exemple : 6.4)"
 		exit
@@ -22,7 +22,7 @@ verif_script()
 	then
 		echo "ERREUR : Veuillez indiquer le numéro de version de Zabbix (Exemple : 6.4)"
 		exit
-	elif [[ -z $OPT_2 ]] && [[ $OPT_2 -ne "-p" ]]
+	elif [[ -z $OPT_2 ]] || [[ $OPT_2 -ne "-p" ]]
 	then
 		echo "ERREUR : Veuillez indiquer l'option -p suivi du mot de passe de la base de données"
 		exit
@@ -30,7 +30,7 @@ verif_script()
 	then
 		echo "ERREUR : Veuillez indiquer le mot de passe de la base de données"
 		exit
-	elif [[ -z $OPT_3 ]] && [[ $OPT_3 -ne "-w" ]]
+	elif [[ -z $OPT_3 ]] || [[ $OPT_3 -ne "-w" ]]
 	then
 		echo "ERREUR : Veuillez indiquer l'option -w suivi de l'adresse IP ou le nom de domaine de l'interface Web"
 		exit
