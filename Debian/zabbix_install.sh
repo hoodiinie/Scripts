@@ -1,13 +1,9 @@
 #!/bin/bash
 
-##VARIABLES
 
 WORKSPACE="/tmp/"
 QUI=$(whoami)
 VERSIONDEB=$(. /etc/os-release; echo "$VERSION_ID")
-
-PASS=$1
-WEB=$2
 
 
 verif_script()
@@ -15,16 +11,22 @@ verif_script()
 	if [ $QUI = "root" ]
 	then
 		echo "ERREUR : Veuillez exécuter le script avec un utilisateur présent dans le fichier /etc/sudoers"
-		exit
-	fi
-
-	if [[ -z $PASS ]]
+	elif [[ -z $OPT_1 ]] && [ $OPT_1 != "-z" ]
+	then
+		echo "ERREUR : Veuillez indiquer l'option -z suivi du numéro de version de Zabbix (Exemple : 6.4)"	
+	elif [[ -z $VERSIONZBX ]]
+	then
+		echo "ERREUR : Veuillez indiquer le numéro de version de Zabbix (Exemple : 6.4)"	
+	elif [[ -z $OPT_2 ]] && [ $OPT_2 != "-z" ]
+	then
+		echo "ERREUR : Veuillez indiquer l'option -p suivi du mot de passe de la base de données"	
+	elif [[ -z $PASSWORD ]]
 	then
 		echo "ERREUR : Veuillez indiquer le mot de passe de la base de données"	
-		exit
-	fi
-
-	if [[ -z $WEB ]]
+	elif [[ -z $OPT_3 ]] && [ $OPT_3 != "-z" ]
+	then
+		echo "ERREUR : Veuillez indiquer l'option -w suivi de l'adresse IP ou le nom de domaine de l'interface Web"	
+	elif [[ -z $WEB ]]
 	then
 		echo "ERREUR : Veuillez indiquer l'adresse IP ou le nom de domaine de l'interface Web"
 		exit
@@ -32,8 +34,6 @@ verif_script()
 }
 
 ##START
-
-read -p "Quelle version de Zabbix souhaitez-vous installer ? " VERSIONZBX
 
 sources_download()
 {
@@ -58,7 +58,7 @@ setup_database()
 
 setup_conf()
 {
-	sudo sed -i 's/# DBPassword=/DBPassword='$PASS'/g' /etc/zabbix/zabbix_server.conf
+	sudo sed -i 's/# DBPassword=/DBPassword='$PASSWORD'/g' /etc/zabbix/zabbix_server.conf
 	sudo sed -i 's/#        listen          8080;/	listen 8080;/g' /etc/zabbix/nginx.conf
 	sudo sed -i 's/#        server_name     example.com;/	server_name '$WEB';/g' /etc/zabbix/nginx.conf
 }
@@ -71,6 +71,13 @@ setup_services()
 
 main()
 {
+	OPT_1=$1
+	VERSIONZBX=$2
+	OPT_2=$3
+	PASSWORD=$4
+	OPT_3=$5
+	WEB=$6
+
 	verif_script
 	sources_download
 	packages_installation
@@ -81,15 +88,19 @@ main()
 
 ##END
 
-main
+output()
+{
+	main
 
-tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
-tput bold; tput setaf 6; echo "                                                                                       "
-tput bold; tput setaf 6; echo "                              => Installation Done <=                                  "
-tput bold; tput setaf 6; echo "                                                                                       "
-tput bold; tput setaf 6; echo "                            Link : http://"$WEB":8080                                  "
-tput bold; tput setaf 6; echo "                          Login : Admin / Password : zabbix                            "
-tput bold; tput setaf 6; echo "                                                                                       "
-tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
-echo ""
+	tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
+	tput bold; tput setaf 6; echo "                                                                                       "
+	tput bold; tput setaf 6; echo "                              => Installation Done <=                                  "
+	tput bold; tput setaf 6; echo "                                                                                       "
+	tput bold; tput setaf 6; echo "                            Link : http://"$WEB":8080                                  "
+	tput bold; tput setaf 6; echo "                          Login : Admin / Password : zabbix                            "
+	tput bold; tput setaf 6; echo "                                                                                       "
+	tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
+	echo ""
+}
 
+output
