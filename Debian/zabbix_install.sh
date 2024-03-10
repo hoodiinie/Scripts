@@ -8,43 +8,52 @@ VERSIONDEB=$(. /etc/os-release; echo "$VERSION_ID")
 
 verif_script()
 {
-	if [ $QUI = "root" ]
+	if [ "$QUI" = "root" ]
 	then
 		echo "ERREUR : Veuillez exécuter le script avec un utilisateur présent dans le fichier /etc/sudoers"
 		exit
 	fi
 
-	if [[ -z $OPT_1 ]] || [[ $OPT_1 != "-z" ]]
+	if [ -z "$OPT1" ]
 	then
-		echo "ERREUR : Veuillez indiquer l'option -z suivi du numéro de version de Zabbix (Exemple : 6.4)"
-		exit
+		if [[ "$OPT1" != '-z' ]]
+		then
+			echo "ERREUR : Veuillez indiquer l'option -z suivi du numéro de version de Zabbix (Exemple : 6.4)"
+			exit
+		fi
 	fi
 
-	if [[ -z $VERSIONZBX ]]
+	if [ -z "$VERSIONZBX" ]
 	then
 		echo "ERREUR : Veuillez indiquer le numéro de version de Zabbix (Exemple : 6.4)"
 		exit
 	fi
 
-	if [[ -z $OPT_2 ]] || [[ $OPT_2 != "-p" ]]
+	if [ -z "$OPT2" ]
 	then
-		echo "ERREUR : Veuillez indiquer l'option -p suivi du mot de passe de la base de données"
-		exit
+		if [[ "$OPT2" != '-p' ]]
+		then
+			echo "ERREUR : Veuillez indiquer l'option -p suivi du mot de passe de la base de données"
+			exit
+		fi
 	fi
 
-	if [[ -z $PASSWORD ]]
+	if [ -z "$PASSWORD" ]
 	then
 		echo "ERREUR : Veuillez indiquer le mot de passe de la base de données"
 		exit
 	fi
 
-	if [[ -z $OPT_3 ]] || [[ $OPT_3 != "-w" ]]
+	if [ -z "$OPT3" ]
 	then
-		echo "ERREUR : Veuillez indiquer l'option -w suivi de l'adresse IP ou le nom de domaine de l'interface Web"
-		exit
+		if [[ "$OPT3" != '-w' ]]
+		then
+			echo "ERREUR : Veuillez indiquer l'option -w suivi de l'adresse IP ou le nom de domaine de l'interface Web"
+			exit
+		fi
 	fi
 
-	if [[ -z $WEB ]]
+	if [ -z "$WEB" ]
 	then
 		echo "ERREUR : Veuillez indiquer l'adresse IP ou le nom de domaine de l'interface Web"
 		exit
@@ -89,11 +98,11 @@ setup_services()
 
 main()
 {
-	OPT_1=$1
+	OPT1=$1
 	VERSIONZBX=$2
-	OPT_2=$3
+	OPT2=$3
 	PASSWORD=$4
-	OPT_3=$5
+	OPT3=$5
 	WEB=$6
 
 	verif_script
