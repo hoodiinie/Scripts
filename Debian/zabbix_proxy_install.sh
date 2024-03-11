@@ -32,7 +32,7 @@ sources_download()
 
 packages_installation()
 {
-    apt install zabbix-proxy-sqlite3
+    apt install -y zabbix-proxy-sqlite3
 }
 
 setup_services()

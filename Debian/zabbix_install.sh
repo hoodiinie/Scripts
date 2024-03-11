@@ -79,8 +79,8 @@ sources_download()
 
 packages_installation()
 {
-	sudo apt install postgresql
-	sudo apt install zabbix-server-pgsql zabbix-frontend-php php8.2-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
+	sudo apt install -y postgresql
+	sudo apt install -y zabbix-server-pgsql zabbix-frontend-php php8.2-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
 }
 
 setup_database()
