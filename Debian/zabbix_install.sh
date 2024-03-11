@@ -6,11 +6,11 @@ QUI=$(whoami)
 VERSIONDEB=$(. /etc/os-release; echo "$VERSION_ID")
 
 OPT1="$1"
-VERSIONZBX=$2
+VERSIONZBX="$2"
 OPT2="$3"
-PASSWORD=$4
+PASSWORD="$4"
 OPT3="$5"
-WEB=$6
+WEB="$6"
 
 
 verif_script()
