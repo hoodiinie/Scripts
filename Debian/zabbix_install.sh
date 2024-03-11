@@ -5,6 +5,13 @@ WORKSPACE="/tmp/"
 QUI=$(whoami)
 VERSIONDEB=$(. /etc/os-release; echo "$VERSION_ID")
 
+OPT1="$1"
+VERSIONZBX=$2
+OPT2="$3"
+PASSWORD=$4
+OPT3="$5"
+WEB=$6
+
 
 verif_script()
 {
@@ -16,9 +23,9 @@ verif_script()
 
 	if [ -z "$OPT1" ]
 	then
-		if [[ "$OPT1" != '-z' ]]
+		if [[ "$OPT1" != '-v' ]]
 		then
-			echo "ERREUR : Veuillez indiquer l'option -z suivi du numéro de version de Zabbix (Exemple : 6.4)"
+			echo "ERREUR : Veuillez indiquer l'option -v suivi du numéro de version de Zabbix (Exemple : 6.4)"
 			exit
 		fi
 	fi
@@ -93,18 +100,11 @@ setup_conf()
 setup_services()
 {
 	sudo systemctl restart zabbix-server zabbix-agent nginx php8.2-fpm
-	sudo systemctl enable zabbix-server zabbix-agent nginx php8.2-fpmtput setaf 
+	sudo systemctl enable zabbix-server zabbix-agent nginx php8.2-fpm
 }
 
 main()
 {
-	OPT1=$1
-	VERSIONZBX=$2
-	OPT2=$3
-	PASSWORD=$4
-	OPT3=$5
-	WEB=$6
-
 	verif_script
 	sources_download
 	packages_installation
@@ -117,7 +117,7 @@ main()
 
 output()
 {
-	main
+	main $OPT1 $VERSIONZBX $OPT2 $PASSWORD $OPT3 $WEB
 
 	tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
 	tput bold; tput setaf 6; echo "                                                                                       "
