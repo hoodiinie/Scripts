@@ -4,13 +4,12 @@
 WORKSPACE="/tmp/"
 QUI=$(whoami)
 VERSIONDEB=$(. /etc/os-release; echo "$VERSION_ID")
+IPADDR=$(hostname -I | awk '{print $1}')
 
 OPT1="$1"
 VERSIONZBX="$2"
 OPT2="$3"
 PASSWORD="$4"
-OPT3="$5"
-WEB="$6"
 
 
 verif_script()
@@ -50,21 +49,6 @@ verif_script()
 		echo "ERREUR : Veuillez indiquer le mot de passe de la base de données"
 		exit
 	fi
-
-	if [ -z "$OPT3" ]
-	then
-		if [[ "$OPT3" != '-w' ]]
-		then
-			echo "ERREUR : Veuillez indiquer l'option -w suivi de l'adresse IP ou le nom de domaine de l'interface Web"
-			exit
-		fi
-	fi
-
-	if [ -z "$WEB" ]
-	then
-		echo "ERREUR : Veuillez indiquer l'adresse IP ou le nom de domaine de l'interface Web"
-		exit
-	fi
 }
 
 ##START
@@ -94,7 +78,7 @@ setup_conf()
 {
 	sudo sed -i 's/# DBPassword=/DBPassword='$PASSWORD'/g' /etc/zabbix/zabbix_server.conf
 	sudo sed -i 's/#        listen          8080;/	listen 8080;/g' /etc/zabbix/nginx.conf
-	sudo sed -i 's/#        server_name     example.com;/	server_name '$WEB';/g' /etc/zabbix/nginx.conf
+	sudo sed -i 's/#        server_name     example.com;/	server_name '$IPADDR';/g' /etc/zabbix/nginx.conf
 }
 
 setup_services()
@@ -117,13 +101,13 @@ main()
 
 output()
 {
-	main $OPT1 $VERSIONZBX $OPT2 $PASSWORD $OPT3 $WEB
+	main $OPT1 $VERSIONZBX $OPT2 $PASSWORD
 
 	tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
 	tput bold; tput setaf 6; echo "                                                                                       "
 	tput bold; tput setaf 6; echo "                              => Installation Done <=                                  "
 	tput bold; tput setaf 6; echo "                                                                                       "
-	tput bold; tput setaf 6; echo "                            Link : http://"$WEB":8080                                  "
+	tput bold; tput setaf 6; echo "                            Link : http://"$IPADDR":8080                               "
 	tput bold; tput setaf 6; echo "                          Login : Admin / Password : zabbix                            "
 	tput bold; tput setaf 6; echo "                                                                                       "
 	tput setaf 1; echo "--------------------------------------------------------------------------------------------------"
