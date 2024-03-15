@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WORKSPACE="/tmp/"
+WORKSPACE="/tmp"
 VERSIONDEB=$(. /etc/os-release; echo "$VERSION_ID")
 
 OPT1="$1"
@@ -24,15 +24,14 @@ verif_script()
 
 sources_download()
 {
-	cd $WORKSPACE
-	wget https://repo.zabbix.com/zabbix/"$VERSIONZBX"/debian/pool/main/z/zabbix-release/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
-	dpkg -i zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
+	wget https://repo.zabbix.com/zabbix/"$VERSIONZBX"/debian/pool/main/z/zabbix-release/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb > $WORKSPACE/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
+	dpkg -i $WORKSPACE/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
 	apt update
 }
 
 packages_installation()
 {
-    apt install -y 
+    apt install -y
     apt install -y zabbix-proxy-sqlite3
 }
 
