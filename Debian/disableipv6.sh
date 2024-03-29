@@ -18,28 +18,28 @@ disable_ipv6()
     IPV6=$(grep "$TEXT" $WORKSPACE)
     if [ "$IPV6" != "$TEXT" ]
     then
-        echo "$TEXT" > $WORKSPACE
+        echo "$TEXT" >> $WORKSPACE
     fi
 
     TEXT="net.ipv6.conf.all.autoconf = 0"
     IPV6=$(grep "$TEXT" $WORKSPACE)
     if [ "$IPV6" != "$TEXT" ]
     then
-        echo "$TEXT" > $WORKSPACE
+        echo "$TEXT" >> $WORKSPACE
     fi
 
     TEXT="net.ipv6.conf.default.disable_ipv6 = 1"
     IPV6=$(grep "$TEXT" $WORKSPACE)
     if [ "$IPV6" != "$TEXT" ]
     then
-        echo "$TEXT" > $WORKSPACE
+        echo "$TEXT" >> $WORKSPACE
     fi
 
     TEXT="net.ipv6.conf.default.autoconf = 0"
     IPV6=$(grep "$TEXT" $WORKSPACE)
     if [ "$IPV6" != "$TEXT" ]
     then
-        echo "$TEXT" > $WORKSPACE
+        echo "$TEXT" >> $WORKSPACE
     fi
 
     service networking restart
