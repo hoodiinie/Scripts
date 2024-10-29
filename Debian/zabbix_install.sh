@@ -12,7 +12,7 @@ OPT2="$3"
 PASSWORD="$4"
 
 
-verif_script()
+function verif_script()
 {
 	if [ "$QUI" = "root" ]
 	then
@@ -53,7 +53,7 @@ verif_script()
 
 ##START
 
-sources_download()
+function sources_download()
 {
 	cd $WORKSPACE
 	wget https://repo.zabbix.com/zabbix/"$VERSIONZBX"/debian/pool/main/z/zabbix-release/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
@@ -61,33 +61,33 @@ sources_download()
 	sudo apt update
 }
 
-packages_installation()
+function packages_installation()
 {
 	sudo apt install -y postgresql
 	sudo apt install -y zabbix-server-pgsql zabbix-frontend-php php8.2-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
 }
 
-setup_database()
+function setup_database()
 {
 	sudo -u postgres createuser --pwprompt zabbix
 	sudo -u postgres createdb -O zabbix zabbix
 	zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
 }
 
-setup_conf()
+function setup_conf()
 {
 	sudo sed -i 's/# DBPassword=/DBPassword='$PASSWORD'/g' /etc/zabbix/zabbix_server.conf
 	sudo sed -i 's/#        listen          8080;/	listen 8080;/g' /etc/zabbix/nginx.conf
 	sudo sed -i 's/#        server_name     example.com;/	server_name '$IPADDR';/g' /etc/zabbix/nginx.conf
 }
 
-setup_services()
+function setup_services()
 {
 	sudo systemctl restart zabbix-server zabbix-agent nginx php8.2-fpm
 	sudo systemctl enable zabbix-server zabbix-agent nginx php8.2-fpm
 }
 
-main()
+function main()
 {
 	verif_script
 	sources_download
@@ -99,7 +99,7 @@ main()
 
 ##END
 
-output()
+function output()
 {
 	main $OPT1 $VERSIONZBX $OPT2 $PASSWORD
 

@@ -15,7 +15,7 @@ GATEWAY="$8"
 
 INTERFACESD="$WORKSPACE/interfaces.d/$INT"
 
-verif_script()
+function verif_script()
 {
     if [ "$QUI" != "root" ]
 	then
@@ -37,7 +37,7 @@ verif_script()
     fi
 }
 
-verif_options()
+function verif_options()
 {
     if [[ "$OPT1" != '-i' ]]
     then
@@ -64,7 +64,7 @@ verif_options()
     fi
 }
 
-verif_options_static()
+function verif_options_static()
 {
     if [[ "$OPT3" != '-a' ]]
     then
@@ -91,7 +91,7 @@ verif_options_static()
     fi
 }
 
-configuration_dhcp()
+function configuration_dhcp()
 {
     echo -e "allow-hotplug $INT
 iface $INT inet dhcp" > "$INTERFACESD"
@@ -109,7 +109,7 @@ iface $INT inet static
     systemctl restart networking
 }
 
-main()
+function main()
 {
     verif_script
     verif_options

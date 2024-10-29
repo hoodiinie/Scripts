@@ -7,7 +7,7 @@ OPT1="$1"
 VERSIONZBX="$2"
 
 
-verif_script()
+function verif_script()
 {
 	if [ -z "$OPT1" ]
 	then
@@ -22,20 +22,20 @@ verif_script()
 
 ##START
 
-sources_download()
+function sources_download()
 {
 	wget https://repo.zabbix.com/zabbix/"$VERSIONZBX"/debian/pool/main/z/zabbix-release/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb > $WORKSPACE/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
 	dpkg -i $WORKSPACE/zabbix-release_"$VERSIONZBX"-1+debian"$VERSIONDEB"_all.deb
 	apt update
 }
 
-packages_installation()
+function packages_installation()
 {
     apt install -y
     apt install -y zabbix-proxy-sqlite3
 }
 
-setup_conf()
+function setup_conf()
 {
     mkdir /var/lib/sqlite
     chown -R zabbix:zabbix /var/lib/sqlite
@@ -57,13 +57,13 @@ setup_conf()
             \nStatsAllowedIP=127.0.0.1" >> /etc/zabbix/zabbix_proxy.conf
 }
 
-setup_services()
+function setup_services()
 {
 	systemctl restart zabbix-proxy
 	systemctl enable zabbix-proxy 
 }
 
-main()
+function main()
 {
     verif_script
     sources_download

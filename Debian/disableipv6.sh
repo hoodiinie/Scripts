@@ -3,7 +3,7 @@
 WORKSPACE="/etc/sysctl.conf"
 QUI=$(whoami)
 
-verif_script()
+function verif_script()
 {
 	if [ "$QUI" != "root" ]
 	then
@@ -12,7 +12,7 @@ verif_script()
 	fi
 }
 
-disable_ipv6()
+function disable_ipv6()
 {
     TEXT="net.ipv6.conf.all.disable_ipv6 = 1"
     IPV6=$(grep "$TEXT" $WORKSPACE)
@@ -45,7 +45,7 @@ disable_ipv6()
     service networking restart
 }
 
-main()
+function main()
 {
     verif_script
     disable_ipv6
