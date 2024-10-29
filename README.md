@@ -4,4 +4,4 @@
 
 ```apt install -y git```
 
-```git clone https://github.com/hoodiinie/scripts.git```
+```git clone https://github.com/hoodiinie/Scripts.git```
